@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CIS Controls v8 Learning App</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preload" href="data/controls.json" as="fetch" crossorigin="anonymous" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <div class="badge">v8</div>
+      <div class="titles">
+        <h1>CIS Controls v8</h1>
+        <p class="subtitle">Interactive guide to the 18 controls</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button id="themeToggle" class="btn ghost" aria-label="Toggle theme">🌗 Theme</button>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" class="tab active" data-tab="overview">Overview</button>
+    <button role="tab" class="tab" data-tab="controls">Controls</button>
+    <button role="tab" class="tab" data-tab="study">Study</button>
+    <button role="tab" class="tab" data-tab="resources">Resources</button>
+  </nav>
+
+  <main class="views">
+    <!-- Overview -->
+    <section id="view-overview" class="view active" aria-labelledby="Overview">
+      <div class="panel hero">
+        <div class="hero-text">
+          <h2>Build, defend, and verify</h2>
+          <p>Explore all 18 CIS Controls with concise explanations, practical examples, and self‑assessment checklists. Filter by Implementation Group (IG1–IG3), search by keywords, and track progress.</p>
+          <div class="pills">
+            <span class="pill"><span class="dot ig1"></span> IG1: Essential</span>
+            <span class="pill"><span class="dot ig2"></span> IG2: Foundational</span>
+            <span class="pill"><span class="dot ig3"></span> IG3: Advanced</span>
+          </div>
+          <div class="cta-row">
+            <a class="btn primary" data-nav="controls">Browse Controls</a>
+            <a class="btn secondary" data-nav="study">Start Studying</a>
+          </div>
+        </div>
+        <div class="hero-art">
+          <img src="cis_v8_infographic.svg" alt="CIS v8 infographic" />
+        </div>
+      </div>
+
+      <div class="panel kpis">
+        <div class="kpi"><div class="kpi-num" id="kpiControls">18</div><div class="kpi-label">Controls</div></div>
+        <div class="kpi"><div class="kpi-num" id="kpiSafeguards">153</div><div class="kpi-label">Safeguards</div></div>
+        <div class="kpi"><div class="kpi-num" id="kpiProgress">0%</div><div class="kpi-label">Checklist Progress</div></div>
+      </div>
+
+      <div class="panel insights">
+        <h3>Insights</h3>
+        <ul id="insightsList" class="insights-list"></ul>
+      </div>
+    </section>
+
+    <!-- Controls -->
+    <section id="view-controls" class="view" aria-labelledby="Controls">
+      <div class="toolbar">
+        <div class="search">
+          <input id="searchInput" type="search" placeholder="Search controls, e.g., \"vulnerability\"" />
+        </div>
+        <div class="filters">
+          <label class="chk"><input type="checkbox" id="filterIG1" checked /> <span class="dot ig1"></span> IG1</label>
+          <label class="chk"><input type="checkbox" id="filterIG2" checked /> <span class="dot ig2"></span> IG2</label>
+          <label class="chk"><input type="checkbox" id="filterIG3" checked /> <span class="dot ig3"></span> IG3</label>
+          <span class="muted">|</span>
+          <label class="chk"><input type="checkbox" id="filterID" checked /> <span class="dot csf-id"></span> ID</label>
+          <label class="chk"><input type="checkbox" id="filterPR" checked /> <span class="dot csf-pr"></span> PR</label>
+          <label class="chk"><input type="checkbox" id="filterDE" checked /> <span class="dot csf-de"></span> DE</label>
+          <label class="chk"><input type="checkbox" id="filterRS" checked /> <span class="dot csf-rs"></span> RS</label>
+          <label class="chk"><input type="checkbox" id="filterRC" checked /> <span class="dot csf-rc"></span> RC</label>
+          <label class="chk"><input type="checkbox" id="filterStar" /> ★ Bookmarked</label>
+          <select id="sortSelect">
+            <option value="num">Sort: Number</option>
+            <option value="name">Sort: Name</option>
+          </select>
+        </div>
+      </div>
+      <div id="controlsGrid" class="grid"></div>
+    </section>
+
+    <!-- Study -->
+    <section id="view-study" class="view" aria-labelledby="Study">
+      <div class="panel study">
+        <div class="study-header">
+          <h2>Flashcards & Checklists</h2>
+          <div class="study-actions">
+            <button id="btnRandom" class="btn">Random Control</button>
+            <button id="btnResetProgress" class="btn ghost">Reset Progress</button>
+          </div>
+        </div>
+
+        <div class="study-content">
+          <div class="flashcard" id="flashcard" tabindex="0" aria-live="polite">
+            <div class="flash-front" id="flashFront"></div>
+            <div class="flash-back" id="flashBack"></div>
+          </div>
+          <aside class="checklist">
+            <h3 class="muted">Checklist</h3>
+            <ul id="checklist"></ul>
+          </aside>
+        </div>
+
+        <div class="quiz" id="quiz">
+          <h3>Scenario & Quiz</h3>
+          <div class="scenario">
+            <label class="muted" for="scenarioSelect">Scenario</label>
+            <select id="scenarioSelect"></select>
+            <p id="scenarioText" class="scenario-text"></p>
+            <button id="btnScenarioExplain" class="btn ghost">Show Explanation</button>
+            <p id="scenarioExplain" class="muted hidden"></p>
+          </div>
+          <div class="quiz-settings">
+            <label class="chk"><span>Challenge</span>
+              <select id="challengeSelect">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+            </label>
+            <label class="chk"><input type="checkbox" id="modeScenario" checked /> Scenario mode (exact safeguards)</label>
+          </div>
+          <div class="qs">
+            <div class="q" id="qIG">
+              <div class="q-title">Which IG(s) include safeguards for this control?</div>
+              <label class="chk"><input type="checkbox" value="IG1"> <span class="dot ig1"></span> IG1</label>
+              <label class="chk"><input type="checkbox" value="IG2"> <span class="dot ig2"></span> IG2</label>
+              <label class="chk"><input type="checkbox" value="IG3"> <span class="dot ig3"></span> IG3</label>
+            </div>
+            <div class="q" id="qCSF">
+              <div class="q-title">Which NIST CSF function(s) does this control support?</div>
+              <div class="chips" id="csfChoices"></div>
+            </div>
+            <div class="q" id="qSafeguards">
+              <div class="q-title">Select applicable safeguard(s) for this control</div>
+              <div id="safeguardChoices" class="choices"></div>
+            </div>
+          </div>
+          <div class="quiz-actions">
+            <button id="btnCheckQuiz" class="btn primary">Check Answers</button>
+            <span id="quizResult" class="muted"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resources -->
+    <section id="view-resources" class="view" aria-labelledby="Resources">
+      <div class="panel">
+        <h2>Resources</h2>
+        <p>Open the source materials included in your folder to dive deeper (PDF/XLSX). These links open the local files from <code>CIS Controls V8</code>.</p>
+        <ul class="res-list">
+          <li>
+            <a href="CIS Controls V8/CIS_Controls_v8_Online.22.02.pdf" target="_blank" rel="noopener">CIS Controls v8 – Online (PDF)</a>
+          </li>
+          <li>
+            <a href="CIS Controls V8/CIS Controls Principles and Goals for V8.pdf" target="_blank" rel="noopener">CIS Controls Principles and Goals for v8 (PDF)</a>
+          </li>
+          <li>
+            <a href="CIS Controls V8/CIS_Controls_Version_8.xlsx" target="_blank" rel="noopener">CIS Controls Version 8 (XLSX)</a>
+          </li>
+          <li>
+            <a href="CIS Controls V8/CIS_Controls_v8_Change_Log.xlsx" target="_blank" rel="noopener">CIS Controls v8 Change Log (XLSX)</a>
+          </li>
+        </ul>
+        <div class="note">Tip: If a link doesn’t open in your browser due to local file restrictions, open the file directly from the folder.</div>
+        <div class="pdf-embed">
+          <object data="CIS Controls V8/CIS_Controls_v8_Online.22.02.pdf" type="application/pdf" width="100%" height="480">
+            <p class="muted">PDF preview unavailable. Use the links above to open the document.</p>
+          </object>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Data Loader (for Accuracy)</h2>
+        <p>To ensure exactness, export the safeguards from <code>CIS_Controls_Version_8.xlsx</code> to CSV and load it here. The app will rebuild mappings for IG, CSF, and safeguards.</p>
+        <ol>
+          <li>Open the XLSX and export a CSV with columns: <code>control_num,control_title,sg_id,sg_title,igs,csf</code>.</li>
+          <li>Values: <code>igs</code> like <code>IG1;IG2</code>, <code>csf</code> like <code>ID;PR</code>.</li>
+        </ol>
+        <div class="loader">
+          <input id="csvFile" type="file" accept=".csv,text/csv" />
+          <button id="btnApplyCSV" class="btn" disabled>Apply CSV</button>
+          <button id="btnExportJSON" class="btn ghost">Export Current JSON</button>
+          <span id="loaderStatus" class="muted"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="detailDialog" class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlgTitle" hidden>
+    <div class="dialog-content">
+      <button class="dialog-close" id="dlgClose" aria-label="Close">✕</button>
+      <div class="dlg-head">
+        <div class="dlg-num" id="dlgNum"></div>
+        <h3 id="dlgTitle"></h3>
+      </div>
+      <p class="dlg-desc" id="dlgDesc"></p>
+      <div class="dlg-sections">
+        <section>
+          <h4>Why it matters</h4>
+          <ul id="dlgWhy"></ul>
+        </section>
+        <section>
+          <h4>Implementation examples</h4>
+          <ul id="dlgHow"></ul>
+        </section>
+        <section>
+          <h4>Metrics & signals</h4>
+          <ul id="dlgMetrics"></ul>
+        </section>
+      </div>
+      <div class="dlg-footer">
+        <button id="btnAddToStudy" class="btn secondary">Add to Study List</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js" type="module"></script>
+  <!-- Inline data fallback to avoid file:// fetch issues -->
+  <script id="controlsData" type="application/json">
+  {
+    "controls": [
+      {"id":"c1","num":1,"title":"Inventory and Control of Enterprise Assets","summary":"Track and manage enterprise devices; block unknown assets.","ig":["IG1","IG2","IG3"],"tags":["asset"],"why":["Unknown devices increase risk."],"how":["Automated discovery and NAC."],"metrics":["Coverage %"],"checklist":["Asset discovery enabled"]},
+      {"id":"c2","num":2,"title":"Inventory and Control of Software Assets","summary":"Approve, inventory, and remove unneeded software.","ig":["IG1","IG2","IG3"],"tags":["software"],"why":["Unapproved apps add vulnerabilities."],"how":["Allowlisting and inventory scans."],"metrics":["Approved-only %"],"checklist":["Allowlisting enforced"]},
+      {"id":"c3","num":3,"title":"Data Protection","summary":"Classify, encrypt, retain, and securely dispose data.","ig":["IG1","IG2","IG3"],"tags":["data"],"why":["Data loss is high impact."],"how":["Default encryption and DLP."],"metrics":["Encrypted %"],"checklist":["Default encryption on"]},
+      {"id":"c4","num":4,"title":"Secure Configuration of Enterprise Assets and Software","summary":"Baseline hardening and continuous configuration management.","ig":["IG1","IG2","IG3"],"tags":["config"],"why":["Defaults expose services."],"how":["CIS Benchmarks + CM tools."],"metrics":["Compliance %"],"checklist":["Baseline applied"]},
+      {"id":"c5","num":5,"title":"Account Management","summary":"Provision, review, and remove accounts; least privilege.","ig":["IG1","IG2","IG3"],"tags":["IAM"],"why":["Stale accounts enable abuse."],"how":["SSO, reviews, JML automation."],"metrics":["Dormant accounts"],"checklist":["MFA for admins"]},
+      {"id":"c6","num":6,"title":"Access Control Management","summary":"Authorize access to data/systems; enforce MFA and segmentation.","ig":["IG1","IG2","IG3"],"tags":["access"],"why":["Unauthorized access causes breaches."],"how":["Approvals, MFA, segmentation."],"metrics":["MFA coverage"],"checklist":["MFA on sensitive apps"]},
+      {"id":"c7","num":7,"title":"Continuous Vulnerability Management","summary":"Discover, prioritize, and remediate vulnerabilities.","ig":["IG1","IG2","IG3"],"tags":["vuln"],"why":["Unpatched vulns are common entry."],"how":["Routine scans; SLA patching."],"metrics":["SLA compliance"],"checklist":["Scanning cadence set"]},
+      {"id":"c8","num":8,"title":"Audit Log Management","summary":"Collect, retain, and analyze security logs.","ig":["IG1","IG2","IG3"],"tags":["logging"],"why":["Without logs, you can't detect."],"how":["Centralize to SIEM."],"metrics":["Source coverage"],"checklist":["Critical logs onboarded"]},
+      {"id":"c9","num":9,"title":"Email and Web Browser Protections","summary":"Reduce phishing and browser risks with layered controls.","ig":["IG1","IG2","IG3"],"tags":["phishing"],"why":["Phishing is top vector."],"how":["URL rewrite, sandboxing."],"metrics":["Phish fail %"],"checklist":["Training scheduled"]},
+      {"id":"c10","num":10,"title":"Malware Defenses","summary":"Deploy EDR/AV and integrate alerts with response.","ig":["IG1","IG2","IG3"],"tags":["malware"],"why":["Ransomware widespread."],"how":["Real-time protection; scans."],"metrics":["EDR coverage"],"checklist":["EDR everywhere"]},
+      {"id":"c11","num":11,"title":"Data Recovery","summary":"Back up, protect, and test restores for critical data.","ig":["IG1","IG2","IG3"],"tags":["backup"],"why":["Recovery depends on backups."],"how":["Immutable copies; tests."],"metrics":["Restore time"],"checklist":["Restore tested"]},
+      {"id":"c12","num":12,"title":"Network Infrastructure Management","summary":"Harden and manage network devices and services.","ig":["IG1","IG2","IG3"],"tags":["network"],"why":["Misconfigurations expose services."],"how":["Secure admin; backups."],"metrics":["Drift findings"],"checklist":["Backups enabled"]},
+      {"id":"c13","num":13,"title":"Network Monitoring and Defense","summary":"Detect anomalies via IDS/IPS and telemetry.","ig":["IG1","IG2","IG3"],"tags":["ids"],"why":["Telemetry shows early signs."],"how":["Flow/DNS/proxy logs."],"metrics":["Alert triage time"],"checklist":["Priority detections on"]},
+      {"id":"c14","num":14,"title":"Security Awareness and Skills Training","summary":"Role-based training and phishing exercises.","ig":["IG1","IG2","IG3"],"tags":["training"],"why":["People are part of defense."],"how":["Cohort-based content."],"metrics":["Completion %"],"checklist":["Cohorts mapped"]},
+      {"id":"c15","num":15,"title":"Service Provider Management","summary":"Security requirements, assessments, monitoring, offboarding.","ig":["IG1","IG2","IG3"],"tags":["vendor"],"why":["Third-party risk propagates."],"how":["Contractual clauses; reviews."],"metrics":["Assessed %"],"checklist":["Offboarding playbook"]},
+      {"id":"c16","num":16,"title":"Application Software Security","summary":"Build security into SDLC and supply chain.","ig":["IG1","IG2","IG3"],"tags":["appsec"],"why":["Earlier fixes cost less."],"how":["SAST/DAST/SCA gates."],"metrics":["Pre vs post-release"],"checklist":["Standards published"]},
+      {"id":"c17","num":17,"title":"Incident Response Management","summary":"Prepare, exercise, and improve incident response.","ig":["IG1","IG2","IG3"],"tags":["IR"],"why":["Prepared teams reduce impact."],"how":["Playbooks + exercises."],"metrics":["MTTR"],"checklist":["Playbooks reviewed"]},
+      {"id":"c18","num":18,"title":"Penetration Testing","summary":"Validate defenses and improve detection.","ig":["IG2","IG3"],"tags":["pentest"],"why":["Realistic testing validates."],"how":["Scope, ROE, retest."],"metrics":["Remediation time"],"checklist":["Retest scheduled"]}
+    ]
+  }
+  </script>
+</body>
+</html>

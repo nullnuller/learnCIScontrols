@@ -1,0 +1,196 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CIS Controls v8 Infographic">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1f2937"/>
+      <stop offset="50%" stop-color="#0b1220"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="badge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0ea5e9"/>
+      <stop offset="100%" stop-color="#22c55e"/>
+    </linearGradient>
+    <style><![CDATA[
+      .title { font: 700 40px system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #e5e7eb; }
+      .subtitle { font: 400 18px system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #94a3b8; }
+      .pill { font: 600 16px system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #e5e7eb; }
+      .card-title { font: 700 16px system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #e5e7eb; }
+      .card-desc { font: 400 12px system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #a3b1c6; }
+      .num { font: 700 14px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fill: #0b1220; }
+    ]]></style>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="900" fill="url(#bg)"/>
+
+  <!-- Header Panel -->
+  <g transform="translate(40,40)">
+    <rect x="0" y="0" rx="16" width="1120" height="120" fill="#0b1220" stroke="#1f2937"/>
+    <rect x="24" y="24" rx="12" width="72" height="72" fill="url(#badge)"/>
+    <text class="title" x="120" y="65">CIS Controls Version 8</text>
+    <text class="subtitle" x="120" y="98">18 Controls · 153 Safeguards · Implementation Groups IG1–IG3</text>
+
+    <!-- IG Pills -->
+    <g transform="translate(760,34)">
+      <rect x="0" y="0" rx="18" width="110" height="36" fill="#0b1220" stroke="#243142"/>
+      <circle cx="18" cy="18" r="6" fill="#38bdf8"/>
+      <text class="pill" x="34" y="23">IG1: 56</text>
+
+      <rect x="120" y="0" rx="18" width="150" height="36" fill="#0b1220" stroke="#243142"/>
+      <circle cx="138" cy="18" r="6" fill="#22c55e"/>
+      <text class="pill" x="154" y="23">IG2 total: 130</text>
+
+      <rect x="280" y="0" rx="18" width="150" height="36" fill="#0b1220" stroke="#243142"/>
+      <circle cx="298" cy="18" r="6" fill="#f59e0b"/>
+      <text class="pill" x="314" y="23">IG3 total: 153</text>
+    </g>
+  </g>
+
+  <!-- Cards Grid (3 cols x 6 rows) -->
+  <g transform="translate(40,190)">
+    <!-- Card template dimensions -->
+    <!-- width=360 height=100 gap=20 -->
+
+    <!-- Function to draw a card is emulated via repeated groups -->
+
+    <!-- Row 1 -->
+    <g transform="translate(0,0)">
+      <rect x="0" y="0" rx="12" width="360" height="100" fill="#101826" stroke="#1f2937"/>
+      <rect x="16" y="16" rx="8" width="36" height="36" fill="#7dd3fc" stroke="#38bdf8"/>
+      <text class="num" x="28" y="40">01</text>
+      <text class="card-title" x="64" y="38">Inventory and Control of Enterprise Assets</text>
+      <text class="card-desc" x="64" y="62">Ensure only authorized devices can connect and be managed.</text>
+    </g>
+    <g transform="translate(380,0)">
+      <rect x="0" y="0" rx="12" width="360" height="100" fill="#101826" stroke="#1f2937"/>
+      <rect x="16" y="16" rx="8" width="36" height="36" fill="#86efac" stroke="#22c55e"/>
+      <text class="num" x="28" y="40">02</text>
+      <text class="card-title" x="64" y="38">Inventory and Control of Software Assets</text>
+      <text class="card-desc" x="64" y="62">Approve, track, and remove software to reduce risk.</text>
+    </g>
+    <g transform="translate(760,0)">
+      <rect x="0" y="0" rx="12" width="360" height="100" fill="#101826" stroke="#1f2937"/>
+      <rect x="16" y="16" rx="8" width="36" height="36" fill="#fde68a" stroke="#f59e0b"/>
+      <text class="num" x="28" y="40">03</text>
+      <text class="card-title" x="64" y="38">Data Protection</text>
+      <text class="card-desc" x="64" y="62">Classify, encrypt, and handle data to prevent loss.</text>
+    </g>
+
+    <!-- Row 2 -->
+    <g transform="translate(0,120)">
+      <rect x="0" y="0" rx="12" width="360" height="100" fill="#101826" stroke="#1f2937"/>
+      <rect x="16" y="16" rx="8" width="36" height="36" fill="#7dd3fc" stroke="#38bdf8"/>
+      <text class="num" x="28" y="40">04</text>
+      <text class="card-title" x="64" y="38">Secure Configuration of Assets and Software</text>
+      <text class="card-desc" x="64" y="62">Harden and maintain secure baselines across environments.</text>
+    </g>
+    <g transform="translate(380,120)">
+      <rect x="0" y="0" rx="12" width="360" height="100" fill="#101826" stroke="#1f2937"/>
+      <rect x="16" y="16" rx="8" width="36" height="36" fill="#86efac" stroke="#22c55e"/>
+      <text class="num" x="28" y="40">05</text>
+      <text class="card-title" x="64" y="38">Account Management</text>
+      <text class="card-desc" x="64" y="62">Provision, review, and remove accounts and privileges.</text>
+    </g>
+    <g transform="translate(760,120)">
+      <rect x="0" y="0" rx="12" width="360" height="100" fill="#101826" stroke="#1f2937"/>
+      <rect x="16" y="16" rx="8" width="36" height="36" fill="#fde68a" stroke="#f59e0b"/>
+      <text class="num" x="28" y="40">06</text>
+      <text class="card-title" x="64" y="38">Access Control Management</text>
+      <text class="card-desc" x="64" y="62">Authorize access, enforce MFA, and segment data access.</text>
+    </g>
+
+    <!-- Row 3 -->
+    <g transform="translate(0,240)">
+      <rect x="0" y="0" rx="12" width="360" height="100" fill="#101826" stroke="#1f2937"/>
+      <rect x="16" y="16" rx="8" width="36" height="36" fill="#7dd3fc" stroke="#38bdf8"/>
+      <text class="num" x="28" y="40">07</text>
+      <text class="card-title" x="64" y="38">Continuous Vulnerability Management</text>
+      <text class="card-desc" x="64" y="62">Discover, prioritize, and remediate vulnerabilities.</text>
+    </g>
+    <g transform="translate(380,240)">
+      <rect x="0" y="0" rx="12" width="360" height="100" fill="#101826" stroke="#1f2937"/>
+      <rect x="16" y="16" rx="8" width="36" height="36" fill="#86efac" stroke="#22c55e"/>
+      <text class="num" x="28" y="40">08</text>
+      <text class="card-title" x="64" y="38">Audit Log Management</text>
+      <text class="card-desc" x="64" y="62">Collect, retain, and analyze security logs.</text>
+    </g>
+    <g transform="translate(760,240)">
+      <rect x="0" y="0" rx="12" width="360" height="100" fill="#101826" stroke="#1f2937"/>
+      <rect x="16" y="16" rx="8" width="36" height="36" fill="#fde68a" stroke="#f59e0b"/>
+      <text class="num" x="28" y="40">09</text>
+      <text class="card-title" x="64" y="38">Email and Web Browser Protections</text>
+      <text class="card-desc" x="64" y="62">Filter, isolate, and harden email/web traffic.</text>
+    </g>
+
+    <!-- Row 4 -->
+    <g transform="translate(0,360)">
+      <rect x="0" y="0" rx="12" width="360" height="100" fill="#101826" stroke="#1f2937"/>
+      <rect x="16" y="16" rx="8" width="36" height="36" fill="#7dd3fc" stroke="#38bdf8"/>
+      <text class="num" x="28" y="40">10</text>
+      <text class="card-title" x="64" y="38">Malware Defenses</text>
+      <text class="card-desc" x="64" y="62">Deploy and manage anti-malware capabilities.</text>
+    </g>
+    <g transform="translate(380,360)">
+      <rect x="0" y="0" rx="12" width="360" height="100" fill="#101826" stroke="#1f2937"/>
+      <rect x="16" y="16" rx="8" width="36" height="36" fill="#86efac" stroke="#22c55e"/>
+      <text class="num" x="28" y="40">11</text>
+      <text class="card-title" x="64" y="38">Data Recovery</text>
+      <text class="card-desc" x="64" y="62">Back up and restore critical assets reliably.</text>
+    </g>
+    <g transform="translate(760,360)">
+      <rect x="0" y="0" rx="12" width="360" height="100" fill="#101826" stroke="#1f2937"/>
+      <rect x="16" y="16" rx="8" width="36" height="36" fill="#fde68a" stroke="#f59e0b"/>
+      <text class="num" x="28" y="40">12</text>
+      <text class="card-title" x="64" y="38">Network Infrastructure Management</text>
+      <text class="card-desc" x="64" y="62">Secure and standardize network devices and services.</text>
+    </g>
+
+    <!-- Row 5 -->
+    <g transform="translate(0,480)">
+      <rect x="0" y="0" rx="12" width="360" height="100" fill="#101826" stroke="#1f2937"/>
+      <rect x="16" y="16" rx="8" width="36" height="36" fill="#7dd3fc" stroke="#38bdf8"/>
+      <text class="num" x="28" y="40">13</text>
+      <text class="card-title" x="64" y="38">Network Monitoring and Defense</text>
+      <text class="card-desc" x="64" y="62">Detect and respond using telemetry and IDS/IPS.</text>
+    </g>
+    <g transform="translate(380,480)">
+      <rect x="0" y="0" rx="12" width="360" height="100" fill="#101826" stroke="#1f2937"/>
+      <rect x="16" y="16" rx="8" width="36" height="36" fill="#86efac" stroke="#22c55e"/>
+      <text class="num" x="28" y="40">14</text>
+      <text class="card-title" x="64" y="38">Security Awareness and Skills Training</text>
+      <text class="card-desc" x="64" y="62">Deliver role-based training and phishing exercises.</text>
+    </g>
+    <g transform="translate(760,480)">
+      <rect x="0" y="0" rx="12" width="360" height="100" fill="#101826" stroke="#1f2937"/>
+      <rect x="16" y="16" rx="8" width="36" height="36" fill="#fde68a" stroke="#f59e0b"/>
+      <text class="num" x="28" y="40">15</text>
+      <text class="card-title" x="64" y="38">Service Provider Management</text>
+      <text class="card-desc" x="64" y="62">Govern third parties with contracts and oversight.</text>
+    </g>
+
+    <!-- Row 6 -->
+    <g transform="translate(0,600)">
+      <rect x="0" y="0" rx="12" width="360" height="100" fill="#101826" stroke="#1f2937"/>
+      <rect x="16" y="16" rx="8" width="36" height="36" fill="#7dd3fc" stroke="#38bdf8"/>
+      <text class="num" x="28" y="40">16</text>
+      <text class="card-title" x="64" y="38">Application Software Security</text>
+      <text class="card-desc" x="64" y="62">Integrate security throughout the SDLC.</text>
+    </g>
+    <g transform="translate(380,600)">
+      <rect x="0" y="0" rx="12" width="360" height="100" fill="#101826" stroke="#1f2937"/>
+      <rect x="16" y="16" rx="8" width="36" height="36" fill="#86efac" stroke="#22c55e"/>
+      <text class="num" x="28" y="40">17</text>
+      <text class="card-title" x="64" y="38">Incident Response Management</text>
+      <text class="card-desc" x="64" y="62">Prepare, detect, contain, and recover effectively.</text>
+    </g>
+    <g transform="translate(760,600)">
+      <rect x="0" y="0" rx="12" width="360" height="100" fill="#101826" stroke="#1f2937"/>
+      <rect x="16" y="16" rx="8" width="36" height="36" fill="#fde68a" stroke="#f59e0b"/>
+      <text class="num" x="28" y="40">18</text>
+      <text class="card-title" x="64" y="38">Penetration Testing</text>
+      <text class="card-desc" x="64" y="62">Validate defenses and improve detection.</text>
+    </g>
+  </g>
+
+  <!-- Footer note -->
+  <text class="subtitle" x="600" y="870" text-anchor="middle">SVG infographic • Open directly in a browser or embed in documents</text>
+</svg>
+

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CIS Controls v8 – Infographic</title>
+  <style>
+    :root {
+      --bg: #0f172a;           /* slate-900 */
+      --panel: #111827;        /* gray-900 */
+      --muted: #94a3b8;        /* slate-400 */
+      --text: #e5e7eb;         /* gray-200 */
+      --accent: #38bdf8;       /* sky-400 */
+      --accent-2: #22c55e;     /* green-500 */
+      --accent-3: #f59e0b;     /* amber-500 */
+      --card: #0b1220;         /* deeper panel */
+      --ring: rgba(56, 189, 248, 0.5);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 15% -10%, #1f2937 0%, #0b1220 50%, #0f172a 100%);
+      color: var(--text);
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 20px 60px;
+    }
+
+    .header {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      gap: 16px;
+      align-items: center;
+      background: linear-gradient(135deg, rgba(56,189,248,.15), rgba(34,197,94,.15));
+      border: 1px solid #1f2937;
+      border-radius: 14px;
+      padding: 16px 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.04);
+    }
+
+    .badge {
+      width: 64px; height: 64px;
+      border-radius: 16px;
+      background: linear-gradient(145deg, #0ea5e9 0%, #22c55e 100%);
+      display: grid; place-items: center;
+      font-weight: 700; font-size: 26px; color: white;
+      letter-spacing: 0.5px;
+      box-shadow: 0 10px 20px rgba(14,165,233,0.35);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 26px;
+      line-height: 1.25;
+      letter-spacing: 0.2px;
+    }
+    .subtitle { color: var(--muted); font-size: 14px; margin-top: 2px; }
+
+    .stats {
+      display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-end;
+      font-size: 13px; color: var(--muted);
+    }
+    .pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid #243142; background: #0b1220; color: var(--text);
+      padding: 8px 12px; border-radius: 999px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+    }
+    .dot { width: 8px; height: 8px; border-radius: 999px; display: inline-block; }
+    .ig1 { background: var(--accent); }
+    .ig2 { background: var(--accent-2); }
+    .ig3 { background: var(--accent-3); }
+
+    .legend {
+      margin-top: 14px;
+      display: flex; gap: 12px; flex-wrap: wrap;
+      color: var(--muted); font-size: 13px;
+    }
+
+    .grid {
+      margin-top: 18px;
+      display: grid; gap: 12px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: 980px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+
+    .card {
+      position: relative;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border: 1px solid #1f2937;
+      border-radius: 14px;
+      padding: 14px 14px 14px 14px;
+      min-height: 112px;
+      overflow: hidden;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+    }
+    .card::after {
+      content: "";
+      position: absolute; inset: -1px; pointer-events: none;
+      border-radius: 14px;
+      box-shadow: inset 0 0 60px rgba(56,189,248,0.06);
+    }
+
+    .card-head { display: flex; gap: 12px; align-items: center; }
+    .num {
+      min-width: 36px; height: 36px; border-radius: 10px;
+      display: grid; place-items: center; font-weight: 700; color: #0b1220;
+      background: linear-gradient(145deg, #bae6fd, #7dd3fc);
+      border: 1px solid rgba(56,189,248,0.8);
+      box-shadow: 0 6px 18px rgba(56,189,248,0.25);
+    }
+    .title { font-weight: 700; font-size: 15px; line-height: 1.25; }
+    .desc  { margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.35; }
+
+    .icon {
+      position: absolute; right: -6px; top: -6px; width: 72px; height: 72px;
+      opacity: 0.08; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.4));
+      pointer-events: none; user-select: none;
+    }
+
+    .footer {
+      margin-top: 20px; color: var(--muted); font-size: 12px; text-align: center;
+    }
+    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: #0b1220; border: 1px solid #243142; padding: 0 6px; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="header">
+      <div class="badge">v8</div>
+      <div>
+        <h1>CIS Controls Version 8</h1>
+        <div class="subtitle">18 Controls · 153 Safeguards · Implementation Groups IG1–IG3</div>
+        <div class="legend">
+          <span><span class="dot ig1"></span> IG1: Essential Cyber Hygiene</span>
+          <span><span class="dot ig2"></span> IG2: Foundational Enterprise Safeguards</span>
+          <span><span class="dot ig3"></span> IG3: Advanced/Sensitive Environments</span>
+        </div>
+      </div>
+      <div class="stats">
+        <span class="pill"><span class="dot ig1"></span> IG1: 56</span>
+        <span class="pill"><span class="dot ig2"></span> IG2 total: 130</span>
+        <span class="pill"><span class="dot ig3"></span> IG3 total: 153</span>
+      </div>
+    </header>
+
+    <main class="grid">
+      <!-- 1 -->
+      <section class="card">
+        <div class="card-head"><div class="num">01</div><div class="title">Inventory and Control of Enterprise Assets</div></div>
+        <p class="desc">Actively manage laptops, servers, and devices to ensure only authorized assets can access resources.</p>
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="6" y="16" width="52" height="34" rx="4" fill="#38bdf8"/>
+          <rect x="16" y="10" width="32" height="8" rx="2" fill="#38bdf8"/>
+        </svg>
+      </section>
+
+      <!-- 2 -->
+      <section class="card">
+        <div class="card-head"><div class="num">02</div><div class="title">Inventory and Control of Software Assets</div></div>
+        <p class="desc">Track, approve, and remove software to reduce attack surface and shadow IT.</p>
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="10" y="14" width="44" height="36" rx="4" fill="#22c55e"/>
+          <circle cx="22" cy="28" r="4" fill="#0b1220"/>
+          <rect x="30" y="24" width="16" height="8" rx="2" fill="#0b1220"/>
+        </svg>
+      </section>
+
+      <!-- 3 -->
+      <section class="card">
+        <div class="card-head"><div class="num">03</div><div class="title">Data Protection</div></div>
+        <p class="desc">Classify, handle, encrypt, and securely dispose of data to prevent loss and exposure.</p>
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M12 26h40v24H12z" fill="#f59e0b"/>
+          <path d="M22 26v-6a10 10 0 0120 0v6" fill="none" stroke="#f59e0b" stroke-width="6" stroke-linecap="round"/>
+        </svg>
+      </section>
+
+      <!-- 4 -->
+      <section class="card">
+        <div class="card-head"><div class="num">04</div><div class="title">Secure Configuration of Assets and Software</div></div>
+        <p class="desc">Harden configs, remove defaults, and continuously enforce secure baselines.</p>
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+          <circle cx="32" cy="32" r="18" fill="#38bdf8"/>
+          <path d="M32 20v24M20 32h24" stroke="#0b1220" stroke-width="6" stroke-linecap="round"/>
+        </svg>
+      </section>
+
+      <!-- 5 -->
+      <section class="card">
+        <div class="card-head"><div class="num">05</div><div class="title">Account Management</div></div>
+        <p class="desc">Manage identities and privileges; enforce least privilege and timely deprovisioning.</p>
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+          <circle cx="32" cy="24" r="10" fill="#22c55e"/>
+          <rect x="16" y="36" width="32" height="16" rx="8" fill="#22c55e"/>
+        </svg>
+      </section>
+
+      <!-- 6 -->
+      <section class="card">
+        <div class="card-head"><div class="num">06</div><div class="title">Access Control Management</div></div>
+        <p class="desc">Approve and enforce access to data and systems with MFA and segmentation.</p>
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="14" y="18" width="36" height="28" rx="4" fill="#f59e0b"/>
+          <circle cx="32" cy="32" r="6" fill="#0b1220"/>
+        </svg>
+      </section>
+
+      <!-- 7 -->
+      <section class="card">
+        <div class="card-head"><div class="num">07</div><div class="title">Continuous Vulnerability Management</div></div>
+        <p class="desc">Routinely discover, prioritize, and remediate vulnerabilities across assets.</p>
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+          <circle cx="28" cy="28" r="14" fill="#38bdf8"/>
+          <rect x="36" y="36" width="16" height="6" rx="3" transform="rotate(45 36 36)" fill="#38bdf8"/>
+        </svg>
+      </section>
+
+      <!-- 8 -->
+      <section class="card">
+        <div class="card-head"><div class="num">08</div><div class="title">Audit Log Management</div></div>
+        <p class="desc">Collect, retain, and analyze logs to detect, investigate, and recover.</p>
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="12" y="14" width="40" height="36" rx="4" fill="#22c55e"/>
+          <path d="M20 24h24M20 32h24M20 40h16" stroke="#0b1220" stroke-width="4"/>
+        </svg>
+      </section>
+
+      <!-- 9 -->
+      <section class="card">
+        <div class="card-head"><div class="num">09</div><div class="title">Email and Web Browser Protections</div></div>
+        <p class="desc">Reduce phishing and browser-based attacks with filtering, isolation, and controls.</p>
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="10" y="18" width="44" height="28" rx="4" fill="#f59e0b"/>
+          <path d="M12 20l20 14L52 20" fill="#0b1220"/>
+        </svg>
+      </section>
+
+      <!-- 10 -->
+      <section class="card">
+        <div class="card-head"><div class="num">10</div><div class="title">Malware Defenses</div></div>
+        <p class="desc">Deploy and maintain anti-malware across endpoints and servers with alerting.</p>
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M12 24h40v16H12z" fill="#38bdf8"/>
+          <path d="M20 20h24v8H20z" fill="#38bdf8"/>
+        </svg>
+      </section>
+
+      <!-- 11 -->
+      <section class="card">
+        <div class="card-head"><div class="num">11</div><div class="title">Data Recovery</div></div>
+        <p class="desc">Perform reliable, tested backups and rapid recovery for critical data and systems.</p>
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+          <circle cx="32" cy="32" r="16" fill="#22c55e"/>
+          <path d="M26 34l6-6 6 6" fill="none" stroke="#0b1220" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </section>
+
+      <!-- 12 -->
+      <section class="card">
+        <div class="card-head"><div class="num">12</div><div class="title">Network Infrastructure Management</div></div>
+        <p class="desc">Secure, standardize, and manage routers, switches, and network services.</p>
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="10" y="20" width="44" height="12" rx="4" fill="#f59e0b"/>
+          <rect x="10" y="36" width="44" height="8" rx="4" fill="#f59e0b"/>
+        </svg>
+      </section>
+
+      <!-- 13 -->
+      <section class="card">
+        <div class="card-head"><div class="num">13</div><div class="title">Network Monitoring and Defense</div></div>
+        <p class="desc">Detect and respond to anomalies using IDS/IPS, telemetry, and alerting.</p>
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+          <polyline points="8,40 20,28 28,36 40,22 56,36" fill="none" stroke="#38bdf8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </section>
+
+      <!-- 14 -->
+      <section class="card">
+        <div class="card-head"><div class="num">14</div><div class="title">Security Awareness and Skills Training</div></div>
+        <p class="desc">Build a culture of security with role-based training and phishing tests.</p>
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="10" y="18" width="44" height="28" rx="4" fill="#22c55e"/>
+          <circle cx="22" cy="32" r="6" fill="#0b1220"/>
+        </svg>
+      </section>
+
+      <!-- 15 -->
+      <section class="card">
+        <div class="card-head"><div class="num">15</div><div class="title">Service Provider Management</div></div>
+        <p class="desc">Govern third parties: contracts, security requirements, monitoring, and offboarding.</p>
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="12" y="18" width="18" height="28" rx="4" fill="#f59e0b"/>
+          <rect x="34" y="18" width="18" height="28" rx="4" fill="#f59e0b"/>
+        </svg>
+      </section>
+
+      <!-- 16 -->
+      <section class="card">
+        <div class="card-head"><div class="num">16</div><div class="title">Application Software Security</div></div>
+        <p class="desc">Integrate security into SDLC: design, code, test, and fix vulnerabilities early.</p>
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="10" y="14" width="44" height="36" rx="4" fill="#38bdf8"/>
+          <path d="M18 24h12M18 32h20M18 40h16" stroke="#0b1220" stroke-width="4"/>
+        </svg>
+      </section>
+
+      <!-- 17 -->
+      <section class="card">
+        <div class="card-head"><div class="num">17</div><div class="title">Incident Response Management</div></div>
+        <p class="desc">Prepare, detect, triage, contain, and recover with tested IR plans.</p>
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+          <circle cx="32" cy="24" r="10" fill="#22c55e"/>
+          <rect x="18" y="36" width="28" height="10" rx="5" fill="#22c55e"/>
+        </svg>
+      </section>
+
+      <!-- 18 -->
+      <section class="card">
+        <div class="card-head"><div class="num">18</div><div class="title">Penetration Testing</div></div>
+        <p class="desc">Validate defenses and improve detection through planned, scoped testing.</p>
+        <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M16 48L48 16" stroke="#f59e0b" stroke-width="8" stroke-linecap="round"/>
+          <circle cx="48" cy="16" r="6" fill="#f59e0b"/>
+        </svg>
+      </section>
+    </main>
+
+    <p class="footer">Tip: Print or export to PDF using your browser (File → Print). For a single-file image version, see <span class="kbd">cis_v8_infographic.svg</span> in this folder.</p>
+  </div>
+</body>
+</html>
+

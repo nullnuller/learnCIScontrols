@@ -1,0 +1,741 @@
+{
+  "controls": [
+    {
+      "id": "c1",
+      "num": 1,
+      "title": "Inventory and Control of Enterprise Assets",
+      "summary": "Actively manage laptops, servers, mobile, and networked devices to ensure only authorized assets access resources.",
+      "ig": ["IG1", "IG2", "IG3"],
+      "csf": ["ID", "PR"],
+      "tags": ["asset", "endpoint", "visibility"],
+      "safeguards": [
+        {"id":"1.1","title":"Establish and maintain detailed enterprise asset inventory"},
+        {"id":"1.2","title":"Address unauthorized assets"},
+        {"id":"1.3","title":"Utilize an active discovery tool"},
+        {"id":"1.4","title":"Use a passive asset discovery tool"}
+      ],
+      "scenarios": [
+        {"text":"New laptops appear on the network with unknown hostnames.","explanation":"Active discovery and quarantine of unknown assets align to 1.2 and 1.3.","safeguards":["1.2","1.3"]},
+        {"text":"Cloud VMs spin up outside change control.","explanation":"Sync cloud APIs into the inventory and tag owners (1.1).","safeguards":["1.1"]}
+      ],
+      "why": [
+        "Unknown or unmanaged devices expand the attack surface and complicate incident response.",
+        "Accurate inventories enable patching, configuration management, and risk decisions.",
+        "Zero Trust and least privilege depend on knowing what assets exist."
+      ],
+      "how": [
+        "Deploy automated discovery (e.g., network scans, EDR) to enumerate assets.",
+        "Require unique asset IDs; record owner, purpose, sensitivity, and lifecycle.",
+        "Quarantine or block unknown devices via NAC or DHCP enforcement.",
+        "Continuously reconcile inventory with CMDB and cloud provider APIs."
+      ],
+      "metrics": [
+        "% assets discovered vs. estimated (coverage)",
+        "Time to identify unauthorized device (MTTI)",
+        "Count of unmanaged assets by segment"
+      ],
+      "checklist": [
+        "Tooling in place to auto-discover assets",
+        "Owners and classifications captured for all assets",
+        "Policy to isolate/block unknown devices",
+        "Inventory reconciled at least weekly"
+      ]
+    },
+    {
+      "id": "c2",
+      "num": 2,
+      "title": "Inventory and Control of Software Assets",
+      "summary": "Track, approve, and remove software to reduce attack surface and shadow IT.",
+      "ig": ["IG1", "IG2", "IG3"],
+      "csf": ["ID", "PR"],
+      "tags": ["software", "allowlist", "shadow IT"],
+      "safeguards": [
+        {"id":"2.1","title":"Establish and maintain a software inventory"},
+        {"id":"2.2","title":"Ensure authorized software is supported"},
+        {"id":"2.3","title":"Address unauthorized software"},
+        {"id":"2.4","title":"Utilize automated software inventory tools"}
+      ],
+      "scenarios": [
+        {"text":"A user installs an unapproved remote access tool.","explanation":"Allowlisting and removal of unauthorized software (2.3).","safeguards":["2.3"]},
+        {"text":"Out-of-support Java version found on critical server.","explanation":"Enforce support status and remove/upgrade (2.2).","safeguards":["2.2"]}
+      ],
+      "why": [
+        "Unapproved or outdated software introduces exploitable vulnerabilities.",
+        "License and compliance obligations require visibility and control.",
+        "Attackers leverage unmanaged software for persistence."
+      ],
+      "how": [
+        "Maintain an approved software list and enforce via allowlisting.",
+        "Inventory packages from endpoints, servers, and container images.",
+        "Block installation of unapproved software; remove unused packages.",
+        "Integrate SCA/SBOM to track components and versions."
+      ],
+      "metrics": [
+        "% endpoints with only approved software",
+        "Mean time to remove unapproved software",
+        "Count of vulnerable packages by severity"
+      ],
+      "checklist": [
+        "Approved software catalog exists",
+        "Allowlisting policy applied on endpoints",
+        "Automated inventory collection in place",
+        "Process to remove unapproved software"
+      ]
+    },
+    {
+      "id": "c3",
+      "num": 3,
+      "title": "Data Protection",
+      "summary": "Classify, handle, encrypt, and securely dispose of data to prevent loss and exposure.",
+      "ig": ["IG1", "IG2", "IG3"],
+      "csf": ["PR", "RC"],
+      "tags": ["data", "encryption", "DLP"],
+      "safeguards": [
+        {"id":"3.1","title":"Establish and maintain a data management process"},
+        {"id":"3.3","title":"Configure automatic session lock"},
+        {"id":"3.4","title":"Encrypt data at rest"},
+        {"id":"3.6","title":"Securely dispose of data"}
+      ],
+      "scenarios": [
+        {"text":"Backups of sensitive data are stored unencrypted.","explanation":"Encrypt at rest and protect keys (3.4).","safeguards":["3.4"]},
+        {"text":"Departing employee copies files to a USB drive.","explanation":"Apply DLP and media controls; secure disposal (3.6).","safeguards":["3.6"]}
+      ],
+      "why": [
+        "Data loss and exposure drive the highest business impact.",
+        "Regulations mandate specific handling and retention controls.",
+        "Consistent classification enables proportional protection."
+      ],
+      "how": [
+        "Adopt data classification with handling and retention standards.",
+        "Encrypt data at rest and in transit; manage keys securely.",
+        "Implement DLP for email, endpoints, and cloud storage.",
+        "Sanitize media; verify destruction of retired assets."
+      ],
+      "metrics": [
+        "% sensitive data encrypted at rest",
+        "DLP incident rate and time to close",
+        "Backups coverage for critical datasets"
+      ],
+      "checklist": [
+        "Classification policy defined and socialized",
+        "Encryption defaults enabled (at rest, in transit)",
+        "DLP monitoring configured for outbound channels",
+        "Secure disposal process implemented"
+      ]
+    },
+    {
+      "id": "c4",
+      "num": 4,
+      "title": "Secure Configuration of Enterprise Assets and Software",
+      "summary": "Harden configurations, remove defaults, and continuously enforce secure baselines.",
+      "ig": ["IG1", "IG2", "IG3"],
+      "csf": ["PR"],
+      "tags": ["hardening", "baseline", "CIS Benchmarks"],
+      "safeguards": [
+        {"id":"4.1","title":"Establish and maintain a secure configuration process"},
+        {"id":"4.3","title":"Securely manage enterprise assets and software"},
+        {"id":"4.5","title":"Manage configuration of network infrastructure"},
+        {"id":"4.6","title":"Centralize configuration management"}
+      ],
+      "scenarios": [
+        {"text":"Internet-exposed server still has default credentials.","explanation":"Baseline hardening removes defaults (4.1).","safeguards":["4.1"]},
+        {"text":"Drift detected on a Kubernetes node.","explanation":"Automate configuration enforcement and alerting (4.6).","safeguards":["4.6"]}
+      ],
+      "why": [
+        "Default settings often enable unnecessary services and weak controls.",
+        "Consistent baselines reduce configuration drift and exposure.",
+        "Auditability and repeatability are essential for scale."
+      ],
+      "how": [
+        "Adopt CIS Benchmarks or organizational baselines; document exceptions.",
+        "Automate configuration management (e.g., GPO, Ansible, MDM).",
+        "Continuously assess drift; alert on non-compliant changes.",
+        "Integrate config checks into CI/CD for images and IaC."
+      ],
+      "metrics": [
+        "% assets compliant with baseline",
+        "Mean time to remediate drift",
+        "Number of exceptions and review cadence"
+      ],
+      "checklist": [
+        "Baseline defined per platform (server, endpoint, cloud)",
+        "Automated enforcement mechanism in place",
+        "Drift monitoring with alerting",
+        "Exception register with owners"
+      ]
+    },
+    {
+      "id": "c5",
+      "num": 5,
+      "title": "Account Management",
+      "summary": "Manage identities and privileges; enforce least privilege and timely deprovisioning.",
+      "ig": ["IG1", "IG2", "IG3"],
+      "csf": ["PR", "ID"],
+      "tags": ["identity", "IAM", "privilege"],
+      "safeguards": [
+        {"id":"5.1","title":"Establish and maintain an inventory of accounts"},
+        {"id":"5.2","title":"Use unique passwords"},
+        {"id":"5.3","title":"Require MFA for administrative access"},
+        {"id":"5.6","title":"Disable dormant accounts"}
+      ],
+      "scenarios": [
+        {"text":"A contractor account remains active after project end.","explanation":"Disable dormant accounts and automate JML (5.6).","safeguards":["5.6"]},
+        {"text":"Admin access without MFA on a remote VPN.","explanation":"Enforce MFA for privileged/remote access (5.3).","safeguards":["5.3"]}
+      ],
+      "why": [
+        "Excess privileges and stale accounts enable lateral movement.",
+        "Lifecycle management reduces insider and orphaned-account risk.",
+        "Principle of least privilege limits blast radius."
+      ],
+      "how": [
+        "Centralize identity with SSO; automate provisioning/deprovisioning.",
+        "Apply RBAC/ABAC and periodic access reviews.",
+        "Enforce MFA for remote, admin, and sensitive access.",
+        "Protect service accounts with vaulting and rotation."
+      ],
+      "metrics": [
+        "Dormant accounts older than 30 days",
+        "% privileged accounts reviewed quarterly",
+        "MFA coverage by population"
+      ],
+      "checklist": [
+        "Joiner/mover/leaver process automated",
+        "MFA enforced for high-risk access",
+        "Quarterly access reviews executed",
+        "Service account controls documented"
+      ]
+    },
+    {
+      "id": "c6",
+      "num": 6,
+      "title": "Access Control Management",
+      "summary": "Approve and enforce access to data and systems with MFA and segmentation.",
+      "ig": ["IG1", "IG2", "IG3"],
+      "csf": ["PR"],
+      "tags": ["access", "authorization", "segmentation"],
+      "safeguards": [
+        {"id":"6.1","title":"Establish and maintain an access control policy"},
+        {"id":"6.3","title":"Require MFA for remote network access"},
+        {"id":"6.5","title":"Implement role-based access control"},
+        {"id":"6.7","title":"Centralize access control"}
+      ],
+      "scenarios": [
+        {"text":"Sensitive finance folder accessible by all employees.","explanation":"Define and enforce RBAC; review access (6.5).","safeguards":["6.5"]},
+        {"text":"Remote users access internal apps without MFA.","explanation":"Require MFA for remote access (6.3).","safeguards":["6.3"]}
+      ],
+      "why": [
+        "Unauthorized access leads directly to data breaches.",
+        "Segmentation limits movement and data exposure.",
+        "Strong auth and approvals reduce exploitation."
+      ],
+      "how": [
+        "Define access request and approval workflows.",
+        "Enforce MFA and conditional access for sensitive resources.",
+        "Segment networks/data; apply least privilege.",
+        "Log and review access changes."
+      ],
+      "metrics": [
+        "MFA coverage for privileged and remote access",
+        "Mean time to revoke access on departure",
+        "Failed access attempts and anomaly rates"
+      ],
+      "checklist": [
+        "Documented access request workflow",
+        "MFA enforced on sensitive apps",
+        "Segmentation policy defined",
+        "Access changes logged and reviewed"
+      ]
+    },
+    {
+      "id": "c7",
+      "num": 7,
+      "title": "Continuous Vulnerability Management",
+      "summary": "Routinely discover, prioritize, and remediate vulnerabilities across assets.",
+      "ig": ["IG1", "IG2", "IG3"],
+      "csf": ["ID", "PR"],
+      "tags": ["vulnerability", "patch", "scan"],
+      "safeguards": [
+        {"id":"7.1","title":"Establish and maintain a vulnerability management process"},
+        {"id":"7.2","title":"Perform authenticated vulnerability scanning"},
+        {"id":"7.3","title":"Remediate vulnerabilities in accordance with SLAs"},
+        {"id":"7.5","title":"Evaluate exploits and prioritize remediation"}
+      ],
+      "scenarios": [
+        {"text":"Critical CVE with active exploit found on DMZ server.","explanation":"Prioritize and remediate per SLA (7.3, 7.5).","safeguards":["7.3","7.5"]},
+        {"text":"Scan coverage misses Linux instances due to creds issue.","explanation":"Fix authenticated scanning coverage (7.2).","safeguards":["7.2"]}
+      ],
+      "why": [
+        "Unpatched vulnerabilities remain a leading initial access vector.",
+        "Prioritization focuses effort on exploitable risk.",
+        "Continuous visibility is needed as environments change."
+      ],
+      "how": [
+        "Scan routinely; include authenticated scans and cloud APIs.",
+        "Prioritize using EPSS, exploit availability, and asset criticality.",
+        "Patch or mitigate within defined SLAs by severity.",
+        "Track remediation and verify closure."
+      ],
+      "metrics": [
+        "Time to remediate by severity (SLA)",
+        "Exploitable vulns (EPSS) open > SLA",
+        "Asset coverage across segments"
+      ],
+      "checklist": [
+        "Scanning cadence defined and executed",
+        "Prioritization model documented",
+        "Patch SLAs agreed with owners",
+        "Closure validated post-remediation"
+      ]
+    },
+    {
+      "id": "c8",
+      "num": 8,
+      "title": "Audit Log Management",
+      "summary": "Collect, retain, and analyze logs to detect, investigate, and recover.",
+      "ig": ["IG1", "IG2", "IG3"],
+      "csf": ["DE"],
+      "tags": ["logging", "SIEM", "telemetry"],
+      "safeguards": [
+        {"id":"8.1","title":"Establish and maintain an audit log management process"},
+        {"id":"8.2","title":"Collect audit logs"},
+        {"id":"8.4","title":"Centralize audit logs"},
+        {"id":"8.7","title":"Retain audit logs"}
+      ],
+      "scenarios": [
+        {"text":"A breach investigation fails due to missing logs.","explanation":"Collect and retain centralized logs (8.2, 8.4, 8.7).","safeguards":["8.2","8.4","8.7"]},
+        {"text":"Parsing errors cause dropped events in SIEM.","explanation":"Harden ingestion and parsing; validate coverage (8.1).","safeguards":["8.1"]}
+      ],
+      "why": [
+        "Insufficient logging impairs detection and forensics.",
+        "Retention supports investigations and compliance.",
+        "Centralization enables correlation and alerting."
+      ],
+      "how": [
+        "Define log sources, formats, and retention times.",
+        "Forward logs to a SIEM with parsing and basic detections.",
+        "Protect logs from tampering and loss.",
+        "Test that critical events generate alerts."
+      ],
+      "metrics": [
+        "Coverage of critical log sources",
+        "Parsing success rate and dropped events",
+        "MTTD/MTTR for alert types"
+      ],
+      "checklist": [
+        "Logging policy and retention defined",
+        "Critical sources onboarded to SIEM",
+        "Integrity protection enabled",
+        "Alerting tested for priority events"
+      ]
+    },
+    {
+      "id": "c9",
+      "num": 9,
+      "title": "Email and Web Browser Protections",
+      "summary": "Reduce phishing and browser-based attacks with filtering, isolation, and controls.",
+      "ig": ["IG1", "IG2", "IG3"],
+      "csf": ["PR"],
+      "tags": ["phishing", "email", "browser"],
+      "safeguards": [
+        {"id":"9.1","title":"Ensure use of only fully supported browsers and email clients"},
+        {"id":"9.2","title":"Use DNS filtering services"},
+        {"id":"9.4","title":"Block unnecessary file types and protect against macros"},
+        {"id":"9.6","title":"Deploy and maintain email anti-malware protections"}
+      ],
+      "scenarios": [
+        {"text":"Users receive phishing emails with malicious macros.","explanation":"Block risky file types and macro execution (9.4, 9.6).","safeguards":["9.4","9.6"]},
+        {"text":"Employees browse to newly registered malicious domains.","explanation":"Use DNS filtering to block malicious domains (9.2).","safeguards":["9.2"]}
+      ],
+      "why": [
+        "Phishing remains a top initial attack vector.",
+        "Malicious web content delivers payloads and credentials theft.",
+        "Layered controls mitigate user error."
+      ],
+      "how": [
+        "Enable anti-phishing, attachment sandboxing, and URL rewriting.",
+        "Harden browsers; restrict extensions and legacy plugins.",
+        "Use DNS and web filtering to block malicious sites.",
+        "Train users and run phishing simulations."
+      ],
+      "metrics": [
+        "Phish failure rate over time",
+        "Blocked malicious emails/URLs",
+        "Browser policy compliance"
+      ],
+      "checklist": [
+        "Mail security controls enabled",
+        "Browser hardening policy applied",
+        "Web filtering in place",
+        "User training scheduled"
+      ]
+    },
+    {
+      "id": "c10",
+      "num": 10,
+      "title": "Malware Defenses",
+      "summary": "Deploy and maintain anti-malware across endpoints and servers with alerting.",
+      "ig": ["IG1", "IG2", "IG3"],
+      "csf": ["PR", "DE"],
+      "tags": ["malware", "EDR", "AV"],
+      "safeguards": [
+        {"id":"10.1","title":"Deploy and maintain anti-malware software"},
+        {"id":"10.2","title":"Configure automatic anti-malware scanning and updates"},
+        {"id":"10.3","title":"Enable real-time anti-malware protection"},
+        {"id":"10.6","title":"Centralize anti-malware telemetry"}
+      ],
+      "scenarios": [
+        {"text":"Ransomware spreads via SMB before alerts are seen.","explanation":"Enable real-time protection and central telemetry (10.3, 10.6).","safeguards":["10.3","10.6"]},
+        {"text":"Anti-malware signatures are stale on remote laptops.","explanation":"Automate updates and periodic scans (10.1, 10.2).","safeguards":["10.1","10.2"]}
+      ],
+      "why": [
+        "Commodity malware and ransomware are pervasive threats.",
+        "Detection and response reduce dwell time.",
+        "Behavioral analytics catch novel variants."
+      ],
+      "how": [
+        "Deploy EDR/AV with automatic updates and policy enforcement.",
+        "Enable real-time protection and periodic full scans.",
+        "Integrate alerts into SIEM/SOAR workflows.",
+        "Test response playbooks for common malware."
+      ],
+      "metrics": [
+        "EDR coverage across assets",
+        "Time to quarantine/block malware",
+        "False positive rate"
+      ],
+      "checklist": [
+        "EDR deployed to all endpoints",
+        "Policies tuned for environment",
+        "Alerts integrated with IR",
+        "Detection tests performed"
+      ]
+    },
+    {
+      "id": "c11",
+      "num": 11,
+      "title": "Data Recovery",
+      "summary": "Perform reliable, tested backups and rapid recovery for critical data and systems.",
+      "ig": ["IG1", "IG2", "IG3"],
+      "csf": ["RC"],
+      "tags": ["backup", "restore", "resilience"],
+      "safeguards": [
+        {"id":"11.1","title":"Establish and maintain a data recovery process"},
+        {"id":"11.2","title":"Perform automated backups"},
+        {"id":"11.4","title":"Protect backups"},
+        {"id":"11.6","title":"Test data recovery"}
+      ],
+      "scenarios": [
+        {"text":"Backups were encrypted by ransomware along with production.","explanation":"Protect backups and test recovery (11.4, 11.6).","safeguards":["11.4","11.6"]},
+        {"text":"A critical database restore fails due to missing logs.","explanation":"Automate backups and validate restore steps (11.2, 11.6).","safeguards":["11.2","11.6"]}
+      ],
+      "why": [
+        "Backups are the last line of defense against data loss.",
+        "Ransomware recovery depends on clean, offline copies.",
+        "Testing validates RTO/RPO assumptions."
+      ],
+      "how": [
+        "Identify critical data and set RTO/RPO objectives.",
+        "Maintain immutable/offline backup copies.",
+        "Automate backup schedules and monitor success.",
+        "Test restore processes regularly."
+      ],
+      "metrics": [
+        "Backup success rate",
+        "Restore time for critical systems",
+        "Backup coverage of critical datasets"
+      ],
+      "checklist": [
+        "Critical data cataloged with RTO/RPO",
+        "Immutable/offline copies maintained",
+        "Backup jobs monitored",
+        "Restore tests executed quarterly"
+      ]
+    },
+    {
+      "id": "c12",
+      "num": 12,
+      "title": "Network Infrastructure Management",
+      "summary": "Secure, standardize, and manage routers, switches, and network services.",
+      "ig": ["IG1", "IG2", "IG3"],
+      "csf": ["PR"],
+      "tags": ["network", "config", "routing"],
+      "safeguards": [
+        {"id":"12.1","title":"Ensure network infrastructure is up-to-date and supported"},
+        {"id":"12.3","title":"Securely manage network infrastructure"},
+        {"id":"12.5","title":"Centralize network device configuration"},
+        {"id":"12.7","title":"Manage network infrastructure changes"}
+      ],
+      "scenarios": [
+        {"text":"Switch configurations are lost after a hardware failure.","explanation":"Centralize and back up configurations (12.5).","safeguards":["12.5"]},
+        {"text":"Admins use unsecured protocols to manage routers.","explanation":"Use secure management with MFA (12.3).","safeguards":["12.3"]}
+      ],
+      "why": [
+        "Misconfigurations expose services and enable interception.",
+        "Standardization reduces errors and speeds recovery.",
+        "Visibility is needed across hybrid/on-prem/cloud."
+      ],
+      "how": [
+        "Harden device configs; disable unused ports/services.",
+        "Centralize logging, backups, and configuration management.",
+        "Use secure management protocols and MFA for admin.",
+        "Document network topology and ownership."
+      ],
+      "metrics": [
+        "Config drift findings per device",
+        "Backup recency and success rate",
+        "Admin access MFA coverage"
+      ],
+      "checklist": [
+        "Baseline configs applied",
+        "Central backups and logging enabled",
+        "Secure admin access enforced",
+        "Network diagrams maintained"
+      ]
+    },
+    {
+      "id": "c13",
+      "num": 13,
+      "title": "Network Monitoring and Defense",
+      "summary": "Detect and respond to anomalies using IDS/IPS, telemetry, and alerting.",
+      "ig": ["IG1", "IG2", "IG3"],
+      "csf": ["DE", "RS"],
+      "tags": ["ids", "monitoring", "defense"],
+      "safeguards": [
+        {"id":"13.1","title":"Deploy IDS/IPS"},
+        {"id":"13.2","title":"Collect network traffic flow logs"},
+        {"id":"13.4","title":"Alert on attack patterns and anomalies"},
+        {"id":"13.7","title":"Implement network-based malware defenses"}
+      ],
+      "scenarios": [
+        {"text":"Exfiltration via unusual DNS tunneling goes unnoticed.","explanation":"Collect flows and alert on anomalies (13.2, 13.4).","safeguards":["13.2","13.4"]},
+        {"text":"No detection for lateral movement between subnets.","explanation":"Deploy IDS/IPS at chokepoints (13.1).","safeguards":["13.1"]}
+      ],
+      "why": [
+        "Network telemetry provides early indicators of compromise.",
+        "East-west visibility helps detect lateral movement.",
+        "Detection coverage complements endpoint controls."
+      ],
+      "how": [
+        "Deploy IDS/IPS and flow analysis at key chokepoints.",
+        "Collect DNS, proxy, and firewall logs centrally.",
+        "Create detections for data exfiltration and C2 patterns.",
+        "Hunt using behavior baselines and threat intel."
+      ],
+      "metrics": [
+        "Detection coverage by segment",
+        "Time from alert to triage",
+        "False positive/negative rates"
+      ],
+      "checklist": [
+        "IDS/IPS deployed at boundaries",
+        "Telemetry sources onboarded",
+        "Priority detections enabled",
+        "Hunting cadence established"
+      ]
+    },
+    {
+      "id": "c14",
+      "num": 14,
+      "title": "Security Awareness and Skills Training",
+      "summary": "Build a culture of security with role-based training and phishing tests.",
+      "ig": ["IG1", "IG2", "IG3"],
+      "csf": ["PR"],
+      "tags": ["training", "awareness", "people"],
+      "safeguards": [
+        {"id":"14.1","title":"Establish and maintain a security awareness program"},
+        {"id":"14.2","title":"Train workforce members to recognize social engineering"},
+        {"id":"14.4","title":"Train workforce in data handling"},
+        {"id":"14.6","title":"Train developers in application security"}
+      ],
+      "scenarios": [
+        {"text":"Phishing simulation failure rate is high for finance team.","explanation":"Tailor training and repeat exercises (14.1, 14.2).","safeguards":["14.1","14.2"]},
+        {"text":"Developers repeatedly introduce injection flaws.","explanation":"Provide secure coding training (14.6).","safeguards":["14.6"]}
+      ],
+      "why": [
+        "Human behavior influences most attack paths.",
+        "Targeted training improves outcomes vs. generic modules.",
+        "Simulations reinforce learning and measure risk."
+      ],
+      "how": [
+        "Map curricula to roles and risks.",
+        "Run phishing exercises with feedback.",
+        "Include secure coding and cloud training for engineers.",
+        "Track completion and effectiveness metrics."
+      ],
+      "metrics": [
+        "Phish failure rate by cohort",
+        "Training completion and recency",
+        "Pre/post assessment scores"
+      ],
+      "checklist": [
+        "Role-based plan defined",
+        "Phishing simulations running",
+        "Technical training for engineers",
+        "Effectiveness tracked and reported"
+      ]
+    },
+    {
+      "id": "c15",
+      "num": 15,
+      "title": "Service Provider Management",
+      "summary": "Govern third parties: contracts, security requirements, monitoring, and offboarding.",
+      "ig": ["IG1", "IG2", "IG3"],
+      "csf": ["ID", "PR"],
+      "tags": ["third-party", "vendor", "risk"],
+      "safeguards": [
+        {"id":"15.1","title":"Establish and maintain an inventory of service providers"},
+        {"id":"15.2","title":"Establish and maintain service provider security requirements"},
+        {"id":"15.3","title":"Assess service providers"},
+        {"id":"15.5","title":"Securely decommission service providers"}
+      ],
+      "scenarios": [
+        {"text":"A SaaS vendor suffers a breach affecting your data.","explanation":"Set requirements and assess providers (15.2, 15.3).","safeguards":["15.2","15.3"]},
+        {"text":"Terminated provider retains VPN access.","explanation":"Revoke and decommission access (15.5).","safeguards":["15.5"]}
+      ],
+      "why": [
+        "Third-party compromises propagate into your environment.",
+        "Clear requirements and monitoring reduce inherited risk.",
+        "Offboarding ensures access is revoked."
+      ],
+      "how": [
+        "Define security requirements in contracts and SOWs.",
+        "Assess providers proportionally to data and access.",
+        "Monitor performance and incidents; enforce SLAs.",
+        "Revoke access promptly at contract end."
+      ],
+      "metrics": [
+        "% critical vendors assessed annually",
+        "Open risk items by vendor",
+        "Time to revoke vendor access"
+      ],
+      "checklist": [
+        "Contractual security clauses",
+        "Risk assessments completed",
+        "Monitoring and reporting defined",
+        "Offboarding playbook in place"
+      ]
+    },
+    {
+      "id": "c16",
+      "num": 16,
+      "title": "Application Software Security",
+      "summary": "Integrate security into SDLC: design, code, test, and fix vulnerabilities early.",
+      "ig": ["IG1", "IG2", "IG3"],
+      "tags": ["sdlc", "appsec", "sast"],
+      "csf": ["PR", "ID"],
+      "safeguards": [
+        {"id":"16.1","title":"Establish and maintain a secure software development process"},
+        {"id":"16.3","title":"Perform threat modeling"},
+        {"id":"16.6","title":"Establish and maintain a software vulnerability remediation process"},
+        {"id":"16.11","title":"Implement code review and testing"}
+      ],
+      "scenarios": [
+        {"text":"A critical vuln ships to production due to missing checks.","explanation":"Add testing gates and remediation process (16.6, 16.11).","safeguards":["16.6","16.11"]},
+        {"text":"New feature introduces auth bypass.","explanation":"Threat model and design review (16.3).","safeguards":["16.3"]}
+      ],
+      "why": [
+        "Fixing defects earlier is cheaper and safer.",
+        "Supply chain risk requires component visibility.",
+        "Security by design reduces recurring flaws."
+      ],
+      "how": [
+        "Define secure coding standards and threat modeling.",
+        "Automate SAST/DAST/SCA in CI/CD with gates.",
+        "Protect secrets and use signed builds/artifacts.",
+        "Provide developer training and secure patterns."
+      ],
+      "metrics": [
+        "Vulns found pre-release vs. post-release",
+        "MTTR for critical code defects",
+        "SBOM coverage across apps"
+      ],
+      "checklist": [
+        "Standards and patterns published",
+        "CI/CD scanning enabled",
+        "Secrets management enforced",
+        "Developer training delivered"
+      ]
+    },
+    {
+      "id": "c17",
+      "num": 17,
+      "title": "Incident Response Management",
+      "summary": "Prepare, detect, triage, contain, and recover with tested IR plans.",
+      "ig": ["IG1", "IG2", "IG3"],
+      "csf": ["RS", "RC"],
+      "tags": ["IR", "playbooks", "readiness"],
+      "safeguards": [
+        {"id":"17.1","title":"Designate personnel and define IR roles"},
+        {"id":"17.2","title":"Document incident response procedures"},
+        {"id":"17.3","title":"Establish and maintain communication plans"},
+        {"id":"17.6","title":"Conduct incident response exercises"}
+      ],
+      "scenarios": [
+        {"text":"Confusion during ransomware response delays containment.","explanation":"Clear roles, procedures, and comms (17.1, 17.2, 17.3).","safeguards":["17.1","17.2","17.3"]},
+        {"text":"Team has never practiced a cloud incident.","explanation":"Run relevant exercises (17.6).","safeguards":["17.6"]}
+      ],
+      "why": [
+        "Prepared teams reduce impact and downtime.",
+        "Clear roles limit confusion during crises.",
+        "Exercises reveal gaps before incidents."
+      ],
+      "how": [
+        "Define IR policies, roles, and communication plans.",
+        "Create playbooks for priority threats (ransomware, BEC, data loss).",
+        "Train and run tabletop/technical exercises.",
+        "Post-incident reviews drive improvements."
+      ],
+      "metrics": [
+        "MTTD/MTTR by incident class",
+        "Exercise frequency and outcomes",
+        "Action items closed after incidents"
+      ],
+      "checklist": [
+        "IR plan approved and socialized",
+        "Playbooks documented",
+        "Exercises scheduled and executed",
+        "Lessons learned tracked"
+      ]
+    },
+    {
+      "id": "c18",
+      "num": 18,
+      "title": "Penetration Testing",
+      "summary": "Validate defenses and improve detection through planned, scoped testing.",
+      "ig": ["IG2", "IG3"],
+      "csf": ["DE", "RS"],
+      "tags": ["pentest", "assurance", "red team"],
+      "safeguards": [
+        {"id":"18.1","title":"Establish and maintain a penetration testing program"},
+        {"id":"18.2","title":"Perform periodic external and internal testing"},
+        {"id":"18.3","title":"Remediate and retest findings"}
+      ],
+      "scenarios": [
+        {"text":"Recurring critical findings appear across tests.","explanation":"Track remediation and retest (18.3).","safeguards":["18.3"]},
+        {"text":"Scope omits critical crown-jewel applications.","explanation":"Define program and scope appropriately (18.1, 18.2).","safeguards":["18.1","18.2"]}
+      ],
+      "why": [
+        "Realistic testing validates assumptions and controls.",
+        "Findings inform prioritization and risk decisions.",
+        "Improves blue team detection and response."
+      ],
+      "how": [
+        "Define scope, rules of engagement, and success criteria.",
+        "Use a mix of automated and manual methods.",
+        "Retest to validate remediation and track trends.",
+        "Coordinate with IR to exercise detection."
+      ],
+      "metrics": [
+        "Time to remediate critical findings",
+        "Repeat finding rate across tests",
+        "Detections triggered during exercises"
+      ],
+      "checklist": [
+        "Scope and ROE documented",
+        "Testing vendor/teams selected",
+        "Remediation tracking in place",
+        "Retest scheduled"
+      ]
+    }
+  ]
+}
